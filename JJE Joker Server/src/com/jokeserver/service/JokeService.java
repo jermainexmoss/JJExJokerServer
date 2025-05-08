@@ -1,7 +1,8 @@
 package com.jokeserver.service;
 
-import com.jokeserver.model.*;
 import com.jokeserver.server.JokeServer.Response;
+import model.*;
+
 import java.util.List;
 
 public interface JokeService {

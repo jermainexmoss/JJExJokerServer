@@ -1,12 +1,13 @@
 package com.jokeserver.service.impl;
 
-import com.jokeserver.dao.*;
-import com.jokeserver.dao.impl.*;
-import com.jokeserver.model.*;
 import com.jokeserver.server.JokeServer.Response;
 import com.jokeserver.service.JokeService;
 import com.jokeserver.util.TransactionManager;
+import dao.*;
+import impl.*;
+import model.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -57,9 +58,8 @@ public class JokeServiceImpl implements JokeService {
     public Response getUser(int userId) {
         try {
             Optional<User> user = userDao.findById(userId);
-            return user.isPresent() ?
-                    new Response("SUCCESS", user.get()) :
-                    new Response("ERROR", "User not found");
+            return user.map(value -> new Response("SUCCESS", value))
+                    .orElseGet(() -> new Response("ERROR", "User not found"));
         } catch (Exception e) {
             LOGGER.severe("Error getting user: " + e.getMessage());
             return new Response("ERROR", e.getMessage());
@@ -87,9 +87,8 @@ public class JokeServiceImpl implements JokeService {
     public Response getJoke(int jokeId) {
         try {
             Optional<Joke> joke = jokeDao.findById(jokeId);
-            return joke.isPresent() ?
-                    new Response("SUCCESS", joke.get()) :
-                    new Response("ERROR", "Joke not found");
+            return joke.map(value -> new Response("SUCCESS", value))
+                    .orElseGet(() -> new Response("ERROR", "Joke not found"));
         } catch (Exception e) {
             LOGGER.severe("Error getting joke: " + e.getMessage());
             return new Response("ERROR", e.getMessage());
@@ -209,4 +208,29 @@ public class JokeServiceImpl implements JokeService {
             logAction(report.getUserId(), "CREATE_REPORT", "Report created for joke: " + report.getJokeId());
             return reportId != -1 ? new Response("SUCCESS", reportId) : new Response("ERROR", "Failed to create report");
         } catch (Exception e) {
-            LOGGER.severe("Error creating report: " + e.get
+            LOGGER.severe("Error creating report: " + e.getMessage());
+            return new Response("ERROR", e.getMessage());
+        }
+    }
+
+    @Override
+    public Response selectJokeOfTheDay() {
+        return null;
+    }
+
+    /**
+     * Logs a user action to the database.
+     */
+    private void logAction(int userId, String actionType, String description) {
+        UserAction action = new UserAction();
+        action.setUserId(userId);
+        action.setActionType(actionType);
+        action.setActionDetails(description);
+        action.setActionTimestamp(LocalDateTime.now());
+        try {
+            actionDao.create(action);
+        } catch (Exception e) {
+            LOGGER.warning("Failed to log user action: " + e.getMessage());
+        }
+    }
+}

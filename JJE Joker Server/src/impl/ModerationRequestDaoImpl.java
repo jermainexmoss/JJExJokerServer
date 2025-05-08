@@ -6,11 +6,8 @@ import com.jokeserver.util.DatabaseConnection;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-package com.jokeserver.dao.impl;
-
-import com.jokeserver.dao.ModerationRequestDao;
-import com.jokeserver.model.ModerationRequest;
-import com.jokeserver.util.DatabaseConnection;
+import dao.ModerationRequestDao;
+import model.ModerationRequest;
 
 import java.sql.*;
 import java.time.LocalDateTime;

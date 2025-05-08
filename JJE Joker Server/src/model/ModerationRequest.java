@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class ModerationRequest implements Serializable {
     private int requestId;
     private int userId;
+    private int jokeId;
     private LocalDateTime requestDate;
     private String requestStatus;
     private Integer processedBy;
