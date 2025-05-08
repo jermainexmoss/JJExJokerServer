@@ -15,4 +15,6 @@ public class Comment implements Serializable {
     private int userId;
     private String commentText;
     private LocalDateTime commentDate;
+
+
 }

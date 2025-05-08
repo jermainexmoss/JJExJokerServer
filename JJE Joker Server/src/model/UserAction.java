@@ -15,4 +15,6 @@ public class UserAction implements Serializable {
     private String actionType;
     private String actionDetails;
     private LocalDateTime actionTimestamp;
+    private String actionDescription;
+    private LocalDateTime actionDate;
 }

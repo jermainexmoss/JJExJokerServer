@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="347e79a3-ba5a-4f32-9a5f-e0f8e486090f" name="Changes" comment="Views added. Database not connected. Settings page under development.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/controller/MasterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/controller/MasterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/service/JokeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/service/JokeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/service/impl/JokeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/service/impl/JokeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/impl/CommentDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/impl/CommentDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/impl/ModerationRequestDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/impl/ModerationRequestDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/Comment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/ModerationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/ModerationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/UserAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/UserAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/view/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/view/HomePage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +48,7 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2wnrf0Fhi8Agr8bAj9cjh3GBd9h" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />

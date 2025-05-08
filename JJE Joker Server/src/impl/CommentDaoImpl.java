@@ -1,5 +1,6 @@
 package impl;
 
+import dao.CommentDao;
 import model.Comment;
 import com.jokeserver.util.DatabaseConnection;
 import dao.CommentDao;
@@ -19,20 +20,19 @@ public class CommentDaoImpl implements CommentDao {
     public int create(Comment comment) {
         String sql = "INSERT INTO comments (joke_id, user_id, comment_text, comment_date) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, comment.getJokeId());
-            stmt.setInt(2, comment.getUserId());
-            stmt.setString(3, comment.getCommentText());
-            stmt.setTimestamp(4, Timestamp.valueOf(comment.getCommentDate() != null ? comment.getCommentDate() : LocalDateTime.now()));
-            int affectedRows = stmt.executeUpdate();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, comment.getJokeId());
+            pstmt.setInt(2, comment.getUserId());
+            pstmt.setString(3, comment.getCommentText());
+            pstmt.setTimestamp(4, Timestamp.valueOf(comment.getCommentDate()));
+            int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                LOGGER.log(Level.WARNING, "Creating comment failed, no rows affected");
+                LOGGER.warning("Creating comment failed, no rows affected");
                 return -1;
             }
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1);
-                }
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error creating comment", e);
@@ -47,36 +47,46 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public List<Comment> findByJokeId(int jokeId) {
-        String sql = "SELECT * FROM comments WHERE joke_id = ? ORDER BY comment_date DESC";
         List<Comment> comments = new ArrayList<>();
+        String sql = "SELECT * FROM comments WHERE joke_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, jokeId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    comments.add(mapResultSetToComment(rs));
-                }
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, jokeId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Comment comment = new Comment();
+                comment.setCommentId(rs.getInt("comment_id"));
+                comment.setJokeId(rs.getInt("joke_id"));
+                comment.setUserId(rs.getInt("user_id"));
+                comment.setCommentText(rs.getString("comment_text"));
+                comment.setCommentDate(rs.getTimestamp("comment_date").toLocalDateTime());
+                comments.add(comment);
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error finding comments by joke ID: " + jokeId, e);
+            LOGGER.log(Level.SEVERE, "Error finding comments by jokeId", e);
         }
         return comments;
     }
 
     @Override
     public List<Comment> findByUserId(int userId) {
-        String sql = "SELECT * FROM comments WHERE user_id = ? ORDER BY comment_date DESC";
         List<Comment> comments = new ArrayList<>();
+        String sql = "SELECT * FROM comments WHERE user_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    comments.add(mapResultSetToComment(rs));
-                }
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Comment comment = new Comment();
+                comment.setCommentId(rs.getInt("comment_id"));
+                comment.setJokeId(rs.getInt("joke_id"));
+                comment.setUserId(rs.getInt("user_id"));
+                comment.setCommentText(rs.getString("comment_text"));
+                comment.setCommentDate(rs.getTimestamp("comment_date").toLocalDateTime());
+                comments.add(comment);
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error finding comments by user ID: " + userId, e);
+            LOGGER.log(Level.SEVERE, "Error finding comments by userId", e);
         }
         return comments;
     }
@@ -85,13 +95,13 @@ public class CommentDaoImpl implements CommentDao {
     public boolean update(Comment comment) {
         String sql = "UPDATE comments SET comment_text = ?, comment_date = ? WHERE comment_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, comment.getCommentText());
-            stmt.setTimestamp(2, Timestamp.valueOf(comment.getCommentDate()));
-            stmt.setInt(3, comment.getCommentId());
-            return stmt.executeUpdate() > 0;
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, comment.getCommentText());
+            pstmt.setTimestamp(2, Timestamp.valueOf(comment.getCommentDate()));
+            pstmt.setInt(3, comment.getCommentId());
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error updating comment ID: " + comment.getCommentId(), e);
+            LOGGER.log(Level.SEVERE, "Error updating comment", e);
             return false;
         }
     }
@@ -100,22 +110,12 @@ public class CommentDaoImpl implements CommentDao {
     public boolean delete(int commentId) {
         String sql = "DELETE FROM comments WHERE comment_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, commentId);
-            return stmt.executeUpdate() > 0;
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, commentId);
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error deleting comment ID: " + commentId, e);
+            LOGGER.log(Level.SEVERE, "Error deleting comment", e);
             return false;
         }
-    }
-
-    private Comment mapResultSetToComment(ResultSet rs) throws SQLException {
-        Comment comment = new Comment();
-        comment.setCommentId(rs.getInt("comment_id"));
-        comment.setJokeId(rs.getInt("joke_id"));
-        comment.setUserId(rs.getInt("user_id"));
-        comment.setCommentText(rs.getString("comment_text"));
-        comment.setCommentDate(rs.getTimestamp("comment_date").toLocalDateTime());
-        return comment;
     }
 }

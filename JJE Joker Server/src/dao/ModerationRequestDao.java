@@ -8,6 +8,9 @@ import java.util.Optional;
 public interface ModerationRequestDao {
     int create(ModerationRequest request);
     Optional<ModerationRequest> findById(int requestId);
+
+    List<ModerationRequest> findByJokeId(int jokeId);
+
     List<ModerationRequest> findByUserId(int userId);
     List<ModerationRequest> findByStatus(String status);
     boolean update(ModerationRequest request);

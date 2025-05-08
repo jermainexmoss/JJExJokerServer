@@ -17,5 +17,10 @@ public class ModerationRequest implements Serializable {
     private String requestStatus;
     private Integer processedBy;
     private LocalDateTime processingDate;
+    private String requestType;
+    private String requestDetails;
+    private String status;
+    private LocalDateTime resolutionDate;
+    private String resolutionDetails;
 }
 

@@ -33,7 +33,7 @@ public class HomePage extends JFrame {
         topBar.add(settingsBtn);
         topBar.add(logoutBtn);
         add(topBar, BorderLayout.NORTH);
-//        add(profileBtn, BorderLayout.NORTH);
+
 
         JPanel mainPanel = new JPanel(new GridLayout(0, 1, 10, 10));
         JScrollPane scrollPane = new JScrollPane(mainPanel);
