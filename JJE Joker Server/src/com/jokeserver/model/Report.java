@@ -9,11 +9,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Vote implements Serializable {
-    private int voteId;
-    private int jokeId;
+public class Report implements Serializable {
+    private int reportId;
     private int userId;
-    private int voteValue; // 1 for upvote, -1 for downvote
-    private LocalDateTime voteDate;
+    private int jokeId;
+    private String reason;
+    private LocalDateTime reportDate;
 }
-
