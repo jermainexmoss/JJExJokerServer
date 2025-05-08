@@ -22,10 +22,8 @@ public class ReportDaoImpl implements ReportDao {
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, report.getJokeId());
             stmt.setInt(2, report.getUserId());
-            stmt.setString(3, report.getReportType());
             stmt.setString(4, report.getReportDetails());
             stmt.setTimestamp(5, Timestamp.valueOf(report.getReportDate() != null ? report.getReportDate() : LocalDateTime.now()));
-            stmt.setString(6, report.getStatus() != null ? report.getStatus() : "pending");
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 LOGGER.log(Level.WARNING, "Creating report failed, no rows affected");
@@ -84,35 +82,10 @@ public class ReportDaoImpl implements ReportDao {
     }
 
     @Override
-    public List<Report> findByStatus(String status) {
-        String sql = "SELECT * FROM reports WHERE status = ? ORDER BY report_date DESC";
-        List<Report> reports = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, status);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    reports.add(mapResultSetToReport(rs));
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error finding reports by status: " + status, e);
-        }
-        return reports;
-    }
-
-    @Override
     public boolean update(Report report) {
         String sql = "UPDATE reports SET status = ?, resolution_details = ?, resolution_date = ? WHERE report_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, report.getStatus());
-            stmt.setString(2, report.getResolutionDetails());
-            if (report.getResolutionDate() != null) {
-                stmt.setTimestamp(3, Timestamp.valueOf(report.getResolutionDate()));
-            } else {
-                stmt.setNull(3, Types.TIMESTAMP);
-            }
             stmt.setInt(4, report.getReportId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -139,14 +112,8 @@ public class ReportDaoImpl implements ReportDao {
         report.setReportId(rs.getInt("report_id"));
         report.setJokeId(rs.getInt("joke_id"));
         report.setUserId(rs.getInt("user_id"));
-        report.setReportType(rs.getString("report_type"));
-        report.setReportDetails(rs.getString("report_details"));
         report.setReportDate(rs.getTimestamp("report_date").toLocalDateTime());
-        report.setStatus(rs.getString("status"));
-        if (rs.getObject("resolution_date") != null) {
-            report.setResolutionDate(rs.getTimestamp("resolution_date").toLocalDateTime());
-        }
-        report.setResolutionDetails(rs.getString("resolution_details"));
+
         return report;
     }
 }

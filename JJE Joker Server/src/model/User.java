@@ -19,4 +19,11 @@ public class User implements Serializable {
     private LocalDateTime lastLogin;
     private boolean isActive;
     private String preferences;
+
+    public String getPasswordHash() {
+    return password;}
+
+
+    public void setPasswordHash(String passwordHash) {
+    }
 }

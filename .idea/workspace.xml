@@ -6,12 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="347e79a3-ba5a-4f32-9a5f-e0f8e486090f" name="Changes" comment="Views added. Database not connected. Settings page under development.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/impl/CommentDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/impl/CommentDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/impl/ModerationRequestDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/impl/ModerationRequestDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/ModerationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/ModerationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/UserAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/UserAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/view/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/view/HomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/impl/ReportDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/impl/ReportDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/impl/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/Report.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/util/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/util/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/util/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/util/TransactionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JJExJokerServer/model/Report.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JJExJokerServer/model/Report.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JJExJokerServer/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JJExJokerServer/model/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +100,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746691080251</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Views added. Database not connected. Settings page under development.">
+      <option name="closed" value="true" />
+      <created>1746703247954</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746703247954</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Views added. Database not connected. Settings page under development.">
+      <option name="closed" value="true" />
+      <created>1746703332228</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746703332228</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

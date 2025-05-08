@@ -25,8 +25,7 @@ public class UserDaoImpl implements UserDao {
             stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getAccountType());
-            stmt.setTimestamp(5, Timestamp.valueOf(user.getRegistrationDate() != null ? user.getRegistrationDate() : LocalDateTime.now()));
-            if (user.getLastLogin() != null) {
+           if (user.getLastLogin() != null) {
                 stmt.setTimestamp(6, Timestamp.valueOf(user.getLastLogin()));
             } else {
                 stmt.setNull(6, Types.TIMESTAMP);
@@ -118,7 +117,6 @@ public class UserDaoImpl implements UserDao {
             stmt.setString(2, user.getPasswordHash());
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getAccountType());
-            stmt.setTimestamp(5, Timestamp.valueOf(user.getRegistrationDate()));
             if (user.getLastLogin() != null) {
                 stmt.setTimestamp(6, Timestamp.valueOf(user.getLastLogin()));
             } else {
@@ -179,7 +177,6 @@ public class UserDaoImpl implements UserDao {
         user.setPasswordHash(rs.getString("password_hash"));
         user.setEmail(rs.getString("email"));
         user.setAccountType(rs.getString("account_type"));
-        user.setRegistrationDate(rs.getTimestamp("registration_date").toLocalDateTime());
         if (rs.getObject("last_login") != null) {
             user.setLastLogin(rs.getTimestamp("last_login").toLocalDateTime());
         }

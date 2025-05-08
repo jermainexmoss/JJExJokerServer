@@ -15,4 +15,12 @@ public class Report implements Serializable {
     private int jokeId;
     private String reason;
     private LocalDateTime reportDate;
+
+
+
+    public String getReportDetails() {
+        return reason;
+    }
+
+
 }
