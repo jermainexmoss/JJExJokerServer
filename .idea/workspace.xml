@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="347e79a3-ba5a-4f32-9a5f-e0f8e486090f" name="Changes" comment="" />
+    <list default="true" id="347e79a3-ba5a-4f32-9a5f-e0f8e486090f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/controller/MasterController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/server/JokeServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/server/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/server/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/service/JokeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/service/impl/JokeServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/util/TransactionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/CategoryDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/CategoryDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/CommentDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/CommentDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/JokeCategoryDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/JokeCategoryDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/JokeDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/JokeDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/JokeOfTheDayDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/JokeOfTheDayDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/ModerationRequestDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/ModerationRequestDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/ReportDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/ReportDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/VoteDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/dao/impl/VoteDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/util/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/JJE Joker Server/src/com/jokeserver/util/DatabaseConnection.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2wnrf0Fhi8Agr8bAj9cjh3GBd9h" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,9 +61,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true"
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

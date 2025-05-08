@@ -258,4 +258,3 @@ public class JokeDaoImpl implements JokeDao {
         return joke;
     }
 }
-

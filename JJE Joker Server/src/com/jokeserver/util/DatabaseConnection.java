@@ -8,29 +8,23 @@ import java.util.logging.Logger;
 
 public class DatabaseConnection {
     private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
-    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/joke_server?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String USERNAME = "root"; // Update with your MySQL username
-    private static final String PASSWORD = "password"; // Update with your MySQL password
-    private static Connection connection;
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/joke_server?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
 
-    public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-                LOGGER.log(Level.INFO, "Database connection established");
-            } catch (SQLException e) {
-                LOGGER.log(Level.SEVERE, "Error connecting to database", e);
-                throw new RuntimeException("Database connection failed", e);
-            }
+    public static Connection getConnection() throws SQLException {
+        try {
+            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Failed to establish database connection", e);
+            throw e;
         }
-        return connection;
     }
 
-    public static void closeConnection() {
+    public static void closeConnection(Connection connection) {
         if (connection != null) {
             try {
                 connection.close();
-                connection = null;
                 LOGGER.log(Level.INFO, "Database connection closed");
             } catch (SQLException e) {
                 LOGGER.log(Level.SEVERE, "Error closing database connection", e);

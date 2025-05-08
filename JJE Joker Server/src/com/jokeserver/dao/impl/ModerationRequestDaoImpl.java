@@ -6,6 +6,14 @@ import com.jokeserver.util.DatabaseConnection;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+package com.jokeserver.dao.impl;
+
+import com.jokeserver.dao.ModerationRequestDao;
+import com.jokeserver.model.ModerationRequest;
+import com.jokeserver.util.DatabaseConnection;
+
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +25,15 @@ public class ModerationRequestDaoImpl implements ModerationRequestDao {
 
     @Override
     public int create(ModerationRequest request) {
-        String sql = "INSERT INTO moderation_requests (user_id, request_date, request_status) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO moderation_requests (joke_id, user_id, request_type, request_details, request_date, status) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, request.getUserId());
-            stmt.setTimestamp(2, Timestamp.valueOf(request.getRequestDate() != null ? request.getRequestDate() : LocalDateTime.now()));
-            stmt.setString(3, request.getRequestStatus());
+            stmt.setInt(1, request.getJokeId());
+            stmt.setInt(2, request.getUserId());
+            stmt.setString(3, request.getRequestType());
+            stmt.setString(4, request.getRequestDetails());
+            stmt.setTimestamp(5, Timestamp.valueOf(request.getRequestDate() != null ? request.getRequestDate() : LocalDateTime.now()));
+            stmt.setString(6, request.getStatus() != null ? request.getStatus() : "pending");
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
                 LOGGER.log(Level.WARNING, "Creating moderation request failed, no rows affected");
@@ -41,19 +52,25 @@ public class ModerationRequestDaoImpl implements ModerationRequestDao {
 
     @Override
     public Optional<ModerationRequest> findById(int requestId) {
-        String sql = "SELECT * FROM moderation_requests WHERE request_id = ?";
+        return Optional.empty();
+    }
+
+    @Override
+    public List<ModerationRequest> findByJokeId(int jokeId) {
+        String sql = "SELECT * FROM moderation_requests WHERE joke_id = ? ORDER BY request_date DESC";
+        List<ModerationRequest> requests = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, requestId);
+            stmt.setInt(1, jokeId);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(mapResultSetToModerationRequest(rs));
+                while (rs.next()) {
+                    requests.add(mapResultSetToModerationRequest(rs));
                 }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error finding moderation request by ID: " + requestId, e);
+            LOGGER.log(Level.SEVERE, "Error finding moderation requests by joke ID: " + jokeId, e);
         }
-        return Optional.empty();
+        return requests;
     }
 
     @Override
@@ -76,7 +93,7 @@ public class ModerationRequestDaoImpl implements ModerationRequestDao {
 
     @Override
     public List<ModerationRequest> findByStatus(String status) {
-        String sql = "SELECT * FROM moderation_requests WHERE request_status = ? ORDER BY request_date DESC";
+        String sql = "SELECT * FROM moderation_requests WHERE status = ? ORDER BY request_date DESC";
         List<ModerationRequest> requests = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -94,17 +111,13 @@ public class ModerationRequestDaoImpl implements ModerationRequestDao {
 
     @Override
     public boolean update(ModerationRequest request) {
-        String sql = "UPDATE moderation_requests SET request_status = ?, processed_by = ?, processing_date = ? WHERE request_id = ?";
+        String sql = "UPDATE moderation_requests SET status = ?, resolution_details = ?, resolution_date = ? WHERE request_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, request.getRequestStatus());
-            if (request.getProcessedBy() != null) {
-                stmt.setInt(2, request.getProcessedBy());
-            } else {
-                stmt.setNull(2, Types.INTEGER);
-            }
-            if (request.getProcessingDate() != null) {
-                stmt.setTimestamp(3, Timestamp.valueOf(request.getProcessingDate()));
+            stmt.setString(1, request.getStatus());
+            stmt.setString(2, request.getResolutionDetails());
+            if (request.getResolutionDate() != null) {
+                stmt.setTimestamp(3, Timestamp.valueOf(request.getResolutionDate()));
             } else {
                 stmt.setNull(3, Types.TIMESTAMP);
             }
@@ -118,18 +131,7 @@ public class ModerationRequestDaoImpl implements ModerationRequestDao {
 
     @Override
     public boolean updateStatus(int requestId, String status, int processedBy) {
-        String sql = "UPDATE moderation_requests SET request_status = ?, processed_by = ?, processing_date = ? WHERE request_id = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, status);
-            stmt.setInt(2, processedBy);
-            stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            stmt.setInt(4, requestId);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error updating status for moderation request ID: " + requestId, e);
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -148,16 +150,16 @@ public class ModerationRequestDaoImpl implements ModerationRequestDao {
     private ModerationRequest mapResultSetToModerationRequest(ResultSet rs) throws SQLException {
         ModerationRequest request = new ModerationRequest();
         request.setRequestId(rs.getInt("request_id"));
+        request.setJokeId(rs.getInt("joke_id"));
         request.setUserId(rs.getInt("user_id"));
+        request.setRequestType(rs.getString("request_type"));
+        request.setRequestDetails(rs.getString("request_details"));
         request.setRequestDate(rs.getTimestamp("request_date").toLocalDateTime());
-        request.setRequestStatus(rs.getString("request_status"));
-        if (rs.getObject("processed_by") != null) {
-            request.setProcessedBy(rs.getInt("processed_by"));
+        request.setStatus(rs.getString("status"));
+        if (rs.getObject("resolution_date") != null) {
+            request.setResolutionDate(rs.getTimestamp("resolution_date").toLocalDateTime());
         }
-        if (rs.getObject("processing_date") != null) {
-            request.setProcessingDate(rs.getTimestamp("processing_date").toLocalDateTime());
-        }
+        request.setResolutionDetails(rs.getString("resolution_details"));
         return request;
     }
 }
-

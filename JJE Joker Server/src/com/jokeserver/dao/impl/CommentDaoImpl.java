@@ -42,18 +42,6 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public Optional<Comment> findById(int commentId) {
-        String sql = "SELECT * FROM comments WHERE comment_id = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, commentId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return Optional.of(mapResultSetToComment(rs));
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error finding comment by ID: " + commentId, e);
-        }
         return Optional.empty();
     }
 
@@ -131,7 +119,3 @@ public class CommentDaoImpl implements CommentDao {
         return comment;
     }
 }
-
-
-
-

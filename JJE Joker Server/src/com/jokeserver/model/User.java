@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 public class User implements Serializable {
     private int userId;
     private String username;
-    private String password; // Hashed password
+    private String password;
     private String email;
-    private String accountType; // regular, creator, moderator, admin
+    private String accountType;
     private LocalDateTime creationDate;
     private LocalDateTime lastLogin;
     private boolean isActive;
-    private String preferences; // JSON string
+    private String preferences;
 }
