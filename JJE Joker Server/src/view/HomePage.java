@@ -40,7 +40,7 @@ public class HomePage extends JFrame {
         add(scrollPane);
 
         try (Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/ChatServerDB", "root", "root")) {
+                "jdbc:mysql://localhost:3306/joke_server", "root", "root")) {
 
             String sql = "SELECT p.post_id, p.content, " +
                     "(SELECT COUNT(*) FROM PostReactions WHERE post_id = p.post_id AND reaction_type = 'like') AS likes, " +
